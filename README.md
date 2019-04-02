@@ -4,13 +4,13 @@
 ---
 
 # The execution steps of the project
-This a project of Motion Planning of the Fly Car course from Udacity.
+###### This a project of Motion Planning of the Fly Car course from Udacity.
 Then, to execute it following the steps:
-    1. colliders.csv contains the data that describe the environment of navigation the drone. If necessary, update that.
-    2. through the variables of initialization (g_lot and g_lat) inform the goal location to the start location is defined in the first line of the colliders.csv
-    3. after starting the solution, an algorithm the search way will run considering the variables of initialization (the start location and the goal location)
-    4. With the way defined, a test the collinearity is applied under the waypoints list to remove the unnecessary waypoints.
-    5. After passing the filter, the drone start following the waypoints planned.
+1. colliders.csv contains the data that describe the environment of navigation the drone. If necessary, update that.
+2. through the variables of initialization (g_lot and g_lat) inform the goal location to the start location is defined in the first line of the colliders.csv
+3. after starting the solution, an algorithm the search way will run considering the variables of initialization (the start location and the goal location)
+4. With the way defined, a test the collinearity is applied under the waypoints list to remove the unnecessary waypoints.
+5. After passing the filter, the drone start following the waypoints planned.
 
 ---
 
