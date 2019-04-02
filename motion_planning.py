@@ -142,19 +142,26 @@ class MotionPlanning(Drone):
         print("North offset = {0}, east offset = {1}".format(north_offset, east_offset))
         # Define starting point on the grid (this is just grid center)
         grid_start = (-north_offset, -east_offset)
+        
         # TODO: convert start position to current position rather than map center
         grid_start = (int(current_local_position[0] - north_offset), int(current_local_position[1] - east_offset))
 
         # Set goal as some arbitrary position on the grid
         #grid_goal = (-north_offset + 10, -east_offset + 10)
         # TODO: adapt to set goal as latitude / longitude position and convert
-        grid_goal = (-north_offset + 20, -east_offset + 32)        
+        if args.g_lon and args.g_lat:
+            new_goal = [float(args.g_lon), float(args.g_lat), 0.0]
+            local_goal = global_to_local(new_goal, self.global_home)
+            grid_goal = (local_goal[0] - north_offset, local_goal[1] - east_offset)
+        else:
+            grid_goal = (-north_offset + 20, -east_offset + 32)        
         
         # Run A* to find a path from start to goal
         # TODO: add diagonal motions with a cost of sqrt(2) to your A* implementation
         # or move to a different search space such as a graph (not done here)
         print('Local Start and Goal: ', grid_start, grid_goal)
         path, path_cost = a_star(grid, heuristic, grid_start, grid_goal)
+        
         # TODO: prune path to minimize number of waypoints
         # TODO (if you're feeling ambitious): Try a different approach altogether!
         path = prune_path(path)
@@ -163,6 +170,7 @@ class MotionPlanning(Drone):
         waypoints = [[p[0] + north_offset, p[1] + east_offset, TARGET_ALTITUDE, 0] for p in path]
         # Set self.waypoints
         self.waypoints = waypoints
+        
         # TODO: send waypoints to sim (this is just for visualization of waypoints)
         self.send_waypoints()
 
@@ -183,6 +191,8 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('--port', type=int, default=5760, help='Port number')
     parser.add_argument('--host', type=str, default='127.0.0.1', help="host address, i.e. '127.0.0.1'")
+    parser.add_argument('--g_lat', type=float, help='Goal position latitude')
+    parser.add_argument('--g_lon', type=float, help='Goal position longitude')
     args = parser.parse_args()
 
     conn = MavlinkConnection('tcp:{0}:{1}'.format(args.host, args.port), timeout=60)

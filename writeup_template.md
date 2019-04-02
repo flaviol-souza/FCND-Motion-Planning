@@ -32,12 +32,25 @@ These scripts contain a basic planning implementation that includes...
 And here's a lovely image of my results (ok this image has nothing to do with it, but it's a nice example of how to include images in your writeup!)
 ![Top Down View](./misc/high_up.png)
 
-Here's | A | Snappy | Table
---- | --- | --- | ---
-1 | `highlight` | **bold** | 7.41
-2 | a | b | c
-3 | *italic* | text | 403
-4 | 2 | 3 | abcd
+The `motion_planning.py` script is an implementation of motion planning. The planning is defined with a search on the grid that represents the environment. For this it necessary to have a Start Point (check the first line of `colliders.csv`) and Goal Point (assigned arbitray on the code), in this way the planning is traced considering the grid's obstacles.
+Once defined the planning, the script will control the drone until the Goal Point.
+
+**Description of features  the script (`motion_planning.py`):**
+    * **States Enum:** Contains the states of the states machine to control of flight from drone 
+    * **MotionPlanning Class:** the core the motion planning process. The initialization and execution this is the default behavior from the Udacidrone API. This class is composed of several functions to control the flight of the drone, listed below:
+        * *local_position_callback:* function the callback to update the current location of drone. If the state of flight is TAKEOFF then the `waypoint_transition` function is called. the `waypoint_transition` function also called when the state of flight is WAYPOINT and the waypoints list is not empty. Or else, the state of flight is WAYPOINT and the waypoints list is empty, then the `landing_transition` is called when the velocity the drone is less than 1.
+        * *velocity_callback:* In this function trigger the `disarming_transition` function when the state of flight LANDING and the drone arrived on goal point.
+        * *state_callback:* Always that the state of flight is updated this function is triggered to control the flight's flow.
+        * *arming_transition:* Attributes the Arming state giving control to the simulator.
+        * *takeoff_transition:* in this function update the state of the fight to TAKEOFF and level the target altitude.
+        * *waypoint_transition:* After attributes, the state of flight to Waypoint, define a new waypoint and instructs the drone to there.
+        * *landing_transition:* this function is triggered on end the flow of flight, here the drone is ordained to land and consequently, the state is updated to Landing.
+        * *disarming_transition:* only updated the states to Desarmar and releases control of the drone. 
+        * *manual_transition:* turn off the drone motors updating the state to Manual and deactivates the flag `in_mission`.
+        * *send_waypoints:* send the list of the waypoints to simulator render it.
+        * *plan_path:* this function is the main to the planning. it is responsible for build the waypoints planning.
+        * *start:* 
+
 
 ### Implementing Your Path Planning Algorithm
 
