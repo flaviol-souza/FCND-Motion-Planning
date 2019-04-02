@@ -37,7 +37,14 @@ Once defined the planning, the script will control the drone until the Goal Poin
     * *start:* 
 
 #### 2. `planning_utils.py`
+The `planning_utils.py` is a script to helper the `motion_planning.py` process. Then this script has function to help the motion planning and the features are:
 
+* **create_grid:** Returns a grid representation of a 2D configuration space based on given obstacle data, drone altitude and safety distance arguments.
+* **Action Enum:** are constraints that are composed of 2 attributes (cost and delta) referring to the location. The `delta` use the first 2 values relative to to the current grid position, already the `cost ` is composed by the last value referring to the cost of performing the action.
+* **valid_actions:** Returns a list of valid actions given a grid and current node.
+* **a_star:** The A* algorithm is a simple yet elegant way of efficiently finding the lowest cost path from start to goal. In this way, the algorithm finds the lowest cost plan by considering the cost of each partial plan.
+* **heuristic:** It's just a feature able calculates the Euclidean distance between two points (the current point and the goal). This function is used by the A* algorithm.
+* **point:** Define a simple function to add a z coordinate of 1 and returns a 3D point as a numpy array.
 
 
 ---
