@@ -1,6 +1,9 @@
 # FCND - 3D Motion Planning
 ![Quad Image](./misc/enroute.png)
 
+---
+
+# The execution steps of the project
 This a project of Motion Planning of the Fly Car course from Udacity.
 Then, to execute it following the steps:
     1. colliders.csv contains the data that describe the environment of navigation the drone. If necessary, update that.
@@ -9,8 +12,8 @@ Then, to execute it following the steps:
     4. With the way defined, a test the collinearity is applied under the waypoints list to remove the unnecessary waypoints.
     5. After passing the filter, the drone start following the waypoints planned.
 
-
 ---
+
 ## Check Rubric Points:
 > The process of acceptance to Udacity's project following a specific Rubric (Read the Rubric to this project [here](https://review.udacity.com/#!/rubrics/1534/view)). In this section, I show a describe the coding of this project.
 
